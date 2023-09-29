@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <div id="characters"></div>
+
+</head>
+
+<body>
+    <script>
+        // Obtener el elemento HTML donde se mostrarán los personajes
+        const charactersDiv = document.getElementById("characters");
+
+        // Hacer la petición GET a la API usando fetch
+        fetch("https://rickandmortyapi.com/api/character")
+            .then(response => response.json()) // Convertir la respuesta en formato JSON
+            .then(data => {
+                // Iterar sobre los personajes y crear una tarjeta para cada uno
+                data.results.forEach(character => {
+                    // Crear la tarjeta HTML para el personaje
+                    const card = document.createElement("div");
+                    card.classList.add("card");
+                    const image = document.createElement("img");
+                    image.src = character.image;
+                    image.classList.add("card-img-top");
+                    card.appendChild(image);
+                    const body = document.createElement("div");
+                    body.classList.add("card-body");
+                    card.appendChild(body);
+                    const name = document.createElement("h5");
+                    name.textContent = character.name;
+                    name.classList.add("card-title");
+                    body.appendChild(name);
+                    const status = document.createElement("p");
+                    status.textContent = `Status: ${character.status}`;
+                    body.appendChild(status);
+                    const species = document.createElement("p");
+                    species.textContent = `Species: ${character.species}`;
+                    body.appendChild(species);
+                    const type = document.createElement("p");
+                    type.textContent = `Type: ${character.type}`;
+                    body.appendChild(type);
+                    const id = document.createElement("id");
+                    id.textContent = `id: ${character.id}`;
+                    body.appendChild(id);
+                    const gender = document.createElement("p");
+                    gender.textContent = `gender: ${character.gender}`;
+                    body.appendChild(gender);
+                    /*
+                    const origin = document.createElement("p");
+                    origin.textContent = `origin: ${character.origin}`;
+                    body.appendChild(origin);
+                    const location = document.createElement("p");
+                    location.textContent = `location: ${character.location}`;
+                    body.appendChild(location);
+                    */
+                    // Agregar la tarjeta al contenedor de personajes
+                    charactersDiv.appendChild(card);
+                });
+            })
+            .catch(error => console.error(error)); // Manejar errores en la petición
+    </script>
+
+</body>
+
+</html>
